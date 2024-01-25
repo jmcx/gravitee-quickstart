@@ -10,6 +10,18 @@ I recommend running through these one by one. There is no info here yet about ho
 
 ## Pro tips to make your life easier
 
+### Make sure you have kubectl auto-completion
+
+For example on zsh:
+
+```sh
+source <(kubectl completion zsh)
+```
+
+Add that command to your ~/.zshrc file (create it if it doesn't exist).
+
+You can now hit `TAB` to autocomplete on everything with `kubectl`, can't live without it. 
+
 ### Install kubens
 
 This makes it very easy to list the namespaces available: 
