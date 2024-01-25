@@ -7,3 +7,35 @@ I recommend running through these one by one. There is no info here yet about ho
 3. [(WIP) Gravitee Ingress Controller on minikube](./03_ingress_minikube/README.md)
 4. [Gravitee and Redpanda event APIs, with Docker](./04_redpanda_docker/README.md)
 5. [(WIP) Gravitee on k3d](./05_gravitee_k3d/README.md)
+
+## Pro tips to make your life easier
+
+### Install kubens
+
+This makes it very easy to list the namespaces available: 
+```sh
+% kubens
+default
+gravitee
+ingress-nginx
+kube-node-lease
+kube-public
+kube-system
+```
+
+And change namespace: 
+
+```sh
+% kubens default
+Context "minikube" modified.
+Active namespace is "default".
+```
+
+Install it like this: 
+
+```sh
+brew install kubectx
+```
+
+With brew install, tab-autocompletion should work out of the box. 
+
