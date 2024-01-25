@@ -1,13 +1,15 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: echo-ingress
+  name: echo-ingress-rate-limit
+  annotations:
+    gravitee.io/template: rate-limit-policy-template
 spec:
   ingressClassName: graviteeio
   rules:
     - http:
         paths:
-          - path: /echo
+          - path: /echo-rate-limit
             pathType: Prefix
             backend:
               service:

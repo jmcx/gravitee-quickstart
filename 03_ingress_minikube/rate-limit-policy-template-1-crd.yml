@@ -1,0 +1,40 @@
+---
+apiVersion: "gravitee.io/v1alpha1"
+kind: "ApiDefinition"
+metadata:
+  name: "rate-limit-policy-template"
+  annotations:
+    gravitee.io/template: "true"
+spec:
+  name: "rate-limit-policy-template"
+  crossId: "88612d12-1a62-4591-a12d-121a62959182"
+  version: "1"
+  description: "rate-limit-policy-template"
+  visibility: "PRIVATE"
+  flows:
+  - id: "64fe1498-ecfd-4f4f-be14-98ecfd5f4f69"
+    name: ""
+    path-operator:
+      path: "/"
+      operator: "STARTS_WITH"
+    condition: ""
+    consumers: []
+    methods: []
+    pre:
+    - name: "Rate Limit"
+      description: ""
+      enabled: true
+      policy: "rate-limit"
+      configuration:
+        async: false
+        addHeaders: false
+        rate:
+          dynamicLimit: "5"
+          periodTime: 30
+          limit: 5
+          periodTimeUnit: "SECONDS"
+          key: ""
+    post: []
+    enabled: true
+  gravitee: "2.0.0"
+  flow_mode: "DEFAULT"

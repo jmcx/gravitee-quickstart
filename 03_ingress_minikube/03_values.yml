@@ -32,7 +32,7 @@ mongo:
   uri: mongodb://graviteeio-apim-mongodb-replicaset.gravitee.svc.cluster.local/gravitee?connectTimeoutMS=30000
 
 gateway:
-  # Can I comment these out ??? Haven't tested yet
+  # Removing this instruction which is not needed because we aren't exposing the gateway through NGINX ingress anymore
   # ingress:
   #   annotations:
   #     nginx.ingress.kubernetes.io/rewrite-target: /$1
@@ -44,7 +44,5 @@ gateway:
   ingress:
     enabled: false
   service:
-    type: LoadBalancer
-    # annotations:
-    #   external-dns.alpha.kubernetes.io/hostname: graviteeio.example.com
+    type: NodePort
     externalPort: 443
