@@ -1,0 +1,195 @@
+{
+  "api" : {
+    "definitionVersion" : "V4",
+    "type" : "MESSAGE",
+    "listeners" : [ {
+      "type" : "SUBSCRIPTION",
+      "entrypoints" : [ {
+        "type" : "webhook",
+        "qos" : "AUTO",
+        "configuration" : {
+          "proxy" : {
+            "useSystemProxy" : false,
+            "enabled" : false
+          },
+          "http" : {
+            "readTimeout" : 10000,
+            "idleTimeout" : 60000,
+            "connectTimeout" : 3000,
+            "maxConcurrentConnections" : 5
+          }
+        }
+      } ]
+    }, {
+      "type" : "HTTP",
+      "paths" : [ {
+        "path" : "/get-orders/",
+        "overrideAccess" : false
+      } ],
+      "entrypoints" : [ {
+        "type" : "http-get",
+        "qos" : "AUTO",
+        "configuration" : {
+          "messagesLimitCount" : 500,
+          "headersInPayload" : false,
+          "metadataInPayload" : false,
+          "messagesLimitDurationMs" : 5000
+        }
+      } ]
+    } ],
+    "endpointGroups" : [ {
+      "name" : "Default Kafka group",
+      "type" : "kafka",
+      "loadBalancer" : {
+        "type" : "ROUND_ROBIN"
+      },
+      "sharedConfiguration" : {
+        "security" : {
+          "protocol" : "PLAINTEXT"
+        },
+        "consumer" : {
+          "encodeMessageId" : false,
+          "topics" : [ "orders" ],
+          "enabled" : true,
+          "autoOffsetReset" : "earliest"
+        }
+      },
+      "endpoints" : [ {
+        "name" : "Default Kafka",
+        "type" : "kafka",
+        "weight" : 1,
+        "inheritConfiguration" : true,
+        "configuration" : {
+          "bootstrapServers" : "redpanda-0:9092"
+        },
+        "services" : { },
+        "secondary" : false
+      } ],
+      "services" : { }
+    } ],
+    "analytics" : {
+      "enabled" : true,
+      "sampling" : {
+        "type" : "COUNT",
+        "value" : "10"
+      }
+    },
+    "flowExecution" : {
+      "mode" : "DEFAULT",
+      "matchRequired" : false
+    },
+    "flows" : [ ],
+    "id" : "011183f6-f59e-40cc-9183-f6f59ec0cc19",
+    "name" : "Product orders V2 API",
+    "description" : "",
+    "apiVersion" : "1.0",
+    "deployedAt" : "2023-11-27T21:58:09.808Z",
+    "createdAt" : "2023-11-21T10:22:28.526Z",
+    "updatedAt" : "2023-11-27T21:58:09.808Z",
+    "disableMembershipNotifications" : false,
+    "groups" : [ ],
+    "state" : "STARTED",
+    "visibility" : "PRIVATE",
+    "lifecycleState" : "PUBLISHED",
+    "tags" : [ ],
+    "primaryOwner" : {
+      "id" : "9ee432ae-7b36-41bc-a432-ae7b36b1bccd",
+      "displayName" : "admin",
+      "type" : "USER"
+    },
+    "definitionContext" : {
+      "origin" : "MANAGEMENT",
+      "mode" : "FULLY_MANAGED"
+    },
+    "responseTemplates" : { },
+    "properties" : [ ]
+  },
+  "members" : [ {
+    "id" : "9ee432ae-7b36-41bc-a432-ae7b36b1bccd",
+    "displayName" : "admin",
+    "roles" : [ {
+      "name" : "PRIMARY_OWNER",
+      "scope" : "API"
+    } ]
+  } ],
+  "metadata" : [ {
+    "key" : "email-support",
+    "name" : "email-support",
+    "format" : "MAIL",
+    "value" : "${(api.primaryOwner.email)!''}",
+    "defaultValue" : "support@change.me"
+  } ],
+  "pages" : [ ],
+  "plans" : [ {
+    "definitionVersion" : "V4",
+    "flows" : [ {
+      "enabled" : true,
+      "selectors" : [ {
+        "type" : "CHANNEL",
+        "channel" : "/",
+        "channelOperator" : "STARTS_WITH"
+      } ],
+      "request" : [ ],
+      "response" : [ ],
+      "subscribe" : [ ],
+      "publish" : [ ],
+      "tags" : [ ]
+    } ],
+    "mode" : "STANDARD",
+    "id" : "c9270ace-6f05-46e7-a70a-ce6f0526e7f0",
+    "name" : "Keyless orders",
+    "description" : "",
+    "apiId" : "011183f6-f59e-40cc-9183-f6f59ec0cc19",
+    "security" : {
+      "type" : "KEY_LESS",
+      "configuration" : { }
+    },
+    "characteristics" : [ ],
+    "commentMessage" : "",
+    "commentRequired" : false,
+    "createdAt" : "2023-11-27T21:41:44.066Z",
+    "excludedGroups" : [ ],
+    "generalConditions" : "",
+    "order" : 2,
+    "publishedAt" : "2023-11-27T21:41:47.512Z",
+    "status" : "PUBLISHED",
+    "tags" : [ ],
+    "type" : "API",
+    "updatedAt" : "2023-11-27T21:41:47.512Z",
+    "validation" : "AUTO"
+  }, {
+    "definitionVersion" : "V4",
+    "flows" : [ {
+      "enabled" : true,
+      "selectors" : [ {
+        "type" : "CHANNEL",
+        "channel" : "/",
+        "channelOperator" : "STARTS_WITH"
+      } ],
+      "request" : [ ],
+      "response" : [ ],
+      "subscribe" : [ ],
+      "publish" : [ ],
+      "tags" : [ ]
+    } ],
+    "mode" : "PUSH",
+    "id" : "3d9f67a7-d8f2-4bd4-9f67-a7d8f2bbd453",
+    "name" : "Push plan",
+    "description" : "",
+    "apiId" : "011183f6-f59e-40cc-9183-f6f59ec0cc19",
+    "characteristics" : [ ],
+    "commentMessage" : "",
+    "commentRequired" : false,
+    "createdAt" : "2023-11-21T12:46:22.538Z",
+    "excludedGroups" : [ ],
+    "generalConditions" : "",
+    "order" : 1,
+    "publishedAt" : "2023-11-27T20:56:16.885Z",
+    "status" : "PUBLISHED",
+    "tags" : [ ],
+    "type" : "API",
+    "updatedAt" : "2023-11-27T20:56:16.885Z",
+    "validation" : "AUTO"
+  } ],
+  "apiMedia" : [ ]
+}

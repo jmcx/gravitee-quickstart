@@ -1,0 +1,5 @@
+*.log
+*.key
+license/license.txt
+license.txt
+.DS_Store

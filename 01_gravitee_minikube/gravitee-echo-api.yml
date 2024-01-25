@@ -1,0 +1,37 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: gravitee-echo-api
+  labels:
+    app: gravitee-echo-api
+    service: gravitee-echo-api
+spec:
+  ports:
+  - name: http
+    port: 80
+    targetPort: 8080
+  selector:
+    app: gravitee-echo-api
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: gravitee-echo-api
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: gravitee-echo-api
+      version: v1
+  template:
+    metadata:
+      labels:
+        app: gravitee-echo-api
+        version: v1
+    spec:
+      containers:
+      - image: graviteeio/gravitee-echo-api
+        imagePullPolicy: IfNotPresent
+        name: gravitee-echo-api
+        ports:
+        - containerPort: 8080

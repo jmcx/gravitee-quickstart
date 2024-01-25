@@ -1,0 +1,323 @@
+{
+  "name" : "Corporate BS v2 API",
+  "crossId" : "e79f07fd-50ac-48e9-9f07-fd50ac88e949",
+  "version" : "1.0",
+  "execution_mode" : "v4-emulation-engine",
+  "description" : "Generates corporate BS quotes, and uses the Gravitee v2 API defintion.",
+  "visibility" : "PRIVATE",
+  "flows" : [ {
+    "id" : "772e00ef-72c8-42e5-ae00-ef72c8f2e5a8",
+    "name" : "My first flow",
+    "path-operator" : {
+      "path" : "/",
+      "operator" : "STARTS_WITH"
+    },
+    "condition" : "",
+    "consumers" : [ ],
+    "methods" : [ "GET" ],
+    "pre" : [ {
+      "name" : "Cache",
+      "description" : "My cache",
+      "enabled" : true,
+      "policy" : "cache",
+      "configuration" : {"timeToLiveSeconds":10,"cacheName":"my-cache","methods":["GET"],"useResponseCacheHeaders":true,"scope":"API"}
+    }, {
+      "name" : "Latency",
+      "description" : "",
+      "enabled" : false,
+      "policy" : "latency",
+      "configuration" : {"time":3,"timeUnit":"SECONDS"}
+    } ],
+    "post" : [ {
+      "name" : "Transform Headers",
+      "description" : "",
+      "enabled" : true,
+      "policy" : "transform-headers",
+      "configuration" : {"addHeaders":[{"name":"new-header","value":"{#properties[\"test-prop\"]}"}],"scope":"RESPONSE"}
+    } ],
+    "enabled" : true
+  } ],
+  "gravitee" : "2.0.0",
+  "flow_mode" : "DEFAULT",
+  "services" : {
+    "health-check" : {
+      "enabled" : true,
+      "schedule" : "* * * 1 * *",
+      "steps" : [ {
+        "name" : "default-step",
+        "request" : {
+          "path" : "/",
+          "method" : "GET",
+          "fromRoot" : true
+        },
+        "response" : {
+          "assertions" : [ "#response.status == 200" ]
+        }
+      } ]
+    }
+  },
+  "resources" : [ {
+    "name" : "my-cache",
+    "type" : "cache",
+    "enabled" : true,
+    "configuration" : {"timeToLiveSeconds":10,"maxEntriesLocalHeap":1000,"timeToIdleSeconds":10}
+  } ],
+  "properties" : [ {
+    "key" : "test-prop",
+    "value" : "hello",
+    "encrypted" : false
+  } ],
+  "members" : [ {
+    "source" : "memory",
+    "sourceId" : "admin",
+    "roles" : [ "d69265b9-9984-4b4d-9265-b999846b4de8" ]
+  } ],
+  "pages" : [ {
+    "id" : "44f3e1ba-d7f5-4510-b3e1-bad7f5351083",
+    "crossId" : "a3d83b8c-fe89-44d3-983b-8cfe89a4d322",
+    "name" : "Aside",
+    "type" : "SYSTEM_FOLDER",
+    "order" : 0,
+    "published" : true,
+    "visibility" : "PUBLIC",
+    "lastModificationDate" : 1700497227299,
+    "contentType" : "application/json",
+    "homepage" : false,
+    "parentPath" : "",
+    "excludedAccessControls" : false,
+    "accessControls" : [ ],
+    "api" : "e1d15eee-49ca-40cd-915e-ee49ca20cde0",
+    "attached_media" : [ ]
+  }, {
+    "id" : "23bcd8e3-e208-4cca-bcd8-e3e2080ccae0",
+    "crossId" : "d916d7b7-4b8d-4837-96d7-b74b8dd83783",
+    "name" : "Corporate BS API documentation",
+    "type" : "MARKDOWN",
+    "content" : "Welcome to the Corporate BS API. An API that lets you make requests for silly meaningless corporate quotes. So why wait? Start GETting your quotes today. ",
+    "order" : 1,
+    "lastContributor" : "9ee432ae-7b36-41bc-a432-ae7b36b1bccd",
+    "published" : true,
+    "visibility" : "PUBLIC",
+    "lastModificationDate" : 1700497227323,
+    "contentType" : "text/yaml",
+    "homepage" : true,
+    "parentPath" : "",
+    "excludedAccessControls" : false,
+    "accessControls" : [ ],
+    "api" : "e1d15eee-49ca-40cd-915e-ee49ca20cde0",
+    "attached_media" : [ ]
+  } ],
+  "plans" : [ {
+    "id" : "03684866-c88c-4d29-a848-66c88c6d29ba",
+    "crossId" : "30ed4cbc-a4e5-451b-ad4c-bca4e5851be3",
+    "name" : "Keyless plan",
+    "description" : "This plans provides access to the jmcx APIs",
+    "validation" : "AUTO",
+    "security" : "KEY_LESS",
+    "type" : "API",
+    "status" : "PUBLISHED",
+    "api" : "e1d15eee-49ca-40cd-915e-ee49ca20cde0",
+    "order" : 0,
+    "characteristics" : [ ],
+    "tags" : [ ],
+    "created_at" : 1700471743498,
+    "updated_at" : 1700816244622,
+    "published_at" : 1700471743501,
+    "paths" : { },
+    "comment_required" : false,
+    "flows" : [ {
+      "id" : "e00b4867-ebcb-4a47-8b48-67ebcb0a471a",
+      "name" : "",
+      "path-operator" : {
+        "path" : "/",
+        "operator" : "STARTS_WITH"
+      },
+      "condition" : "",
+      "consumers" : [ ],
+      "methods" : [ ],
+      "pre" : [ {
+        "name" : "Rate Limit",
+        "description" : "",
+        "enabled" : true,
+        "policy" : "rate-limit",
+        "configuration" : {"async":false,"addHeaders":false,"rate":{"key":"","periodTime":10,"periodTimeUnit":"SECONDS","limit":3}}
+      } ],
+      "post" : [ ],
+      "enabled" : true
+    } ]
+  }, {
+    "id" : "9b8565e8-7529-4794-8565-e8752987948c",
+    "crossId" : "8eab4ee8-0787-4898-ab4e-e80787489864",
+    "name" : "API key plan",
+    "description" : "",
+    "validation" : "AUTO",
+    "security" : "API_KEY",
+    "securityDefinition" : "{ }",
+    "type" : "API",
+    "status" : "PUBLISHED",
+    "api" : "e1d15eee-49ca-40cd-915e-ee49ca20cde0",
+    "order" : 1,
+    "characteristics" : [ ],
+    "tags" : [ ],
+    "created_at" : 1700576950238,
+    "updated_at" : 1701123508654,
+    "published_at" : 1700756076982,
+    "paths" : { },
+    "excluded_groups" : [ ],
+    "comment_required" : false,
+    "comment_message" : "",
+    "general_conditions" : "",
+    "flows" : [ {
+      "id" : "edb3a646-ac14-451d-b3a6-46ac14d51dc5",
+      "path-operator" : {
+        "path" : "/",
+        "operator" : "STARTS_WITH"
+      },
+      "consumers" : [ ],
+      "methods" : [ ],
+      "pre" : [ ],
+      "post" : [ ],
+      "enabled" : true
+    } ]
+  }, {
+    "id" : "38811431-2c9a-40e0-8114-312c9ab0e0a0",
+    "crossId" : "77feae2b-4ef2-4026-beae-2b4ef2202687",
+    "name" : "JWT plan",
+    "description" : "",
+    "validation" : "MANUAL",
+    "security" : "JWT",
+    "securityDefinition" : "{\n  \"signature\" : \"RSA_RS256\",\n  \"publicKeyResolver\" : \"GIVEN_KEY\",\n  \"useSystemProxy\" : false,\n  \"extractClaims\" : true,\n  \"propagateAuthHeader\" : true,\n  \"userClaim\" : \"sub\",\n  \"confirmationMethodValidation\" : {\n    \"ignoreMissing\" : true,\n    \"certificateBoundThumbprint\" : {\n      \"enabled\" : false,\n      \"extractCertificateFromHeader\" : false,\n      \"headerName\" : \"ssl-client-cert\"\n    }\n  }\n}",
+    "type" : "API",
+    "status" : "STAGING",
+    "api" : "e1d15eee-49ca-40cd-915e-ee49ca20cde0",
+    "order" : 0,
+    "characteristics" : [ ],
+    "tags" : [ ],
+    "created_at" : 1701014803638,
+    "updated_at" : 1701123508666,
+    "paths" : { },
+    "excluded_groups" : [ ],
+    "comment_required" : false,
+    "comment_message" : "",
+    "general_conditions" : "",
+    "flows" : [ {
+      "id" : "71690f66-5afb-4d37-a90f-665afbcd37ea",
+      "path-operator" : {
+        "path" : "/",
+        "operator" : "STARTS_WITH"
+      },
+      "consumers" : [ ],
+      "methods" : [ ],
+      "pre" : [ {
+        "name" : "Quota",
+        "enabled" : true,
+        "policy" : "quota",
+        "configuration" : {"async":false,"addHeaders":true,"quota":{"key":"","limit":10,"periodTime":1,"periodTimeUnit":"HOURS"}}
+      } ],
+      "post" : [ ],
+      "enabled" : true
+    } ]
+  }, {
+    "id" : "3dc48274-6888-4204-8482-7468882204dc",
+    "crossId" : "2207fa33-c24c-460c-87fa-33c24ca60cec",
+    "name" : "restricted key plan",
+    "description" : "",
+    "validation" : "MANUAL",
+    "security" : "API_KEY",
+    "securityDefinition" : "{ }",
+    "type" : "API",
+    "status" : "PUBLISHED",
+    "api" : "e1d15eee-49ca-40cd-915e-ee49ca20cde0",
+    "order" : 2,
+    "characteristics" : [ ],
+    "tags" : [ ],
+    "created_at" : 1700819267575,
+    "updated_at" : 1701123508677,
+    "published_at" : 1700819284448,
+    "paths" : { },
+    "excluded_groups" : [ ],
+    "comment_required" : false,
+    "comment_message" : "",
+    "general_conditions" : "",
+    "flows" : [ {
+      "id" : "caeee38a-0ad2-4f15-aee3-8a0ad2bf15d9",
+      "path-operator" : {
+        "path" : "/",
+        "operator" : "STARTS_WITH"
+      },
+      "consumers" : [ ],
+      "methods" : [ ],
+      "pre" : [ {
+        "name" : "Rate Limiting",
+        "enabled" : true,
+        "policy" : "rate-limit",
+        "configuration" : {"async":false,"addHeaders":false,"rate":{"key":"","limit":3,"periodTime":10,"periodTimeUnit":"SECONDS"}}
+      } ],
+      "post" : [ ],
+      "enabled" : true
+    } ]
+  } ],
+  "metadata" : [ {
+    "key" : "email-support",
+    "name" : "email-support",
+    "format" : "MAIL",
+    "value" : "${(api.primaryOwner.email)!''}",
+    "defaultValue" : "support@change.me",
+    "apiId" : "e1d15eee-49ca-40cd-915e-ee49ca20cde0"
+  } ],
+  "id" : "e1d15eee-49ca-40cd-915e-ee49ca20cde0",
+  "path_mappings" : [ ],
+  "proxy" : {
+    "virtual_hosts" : [ {
+      "path" : "/quotev2"
+    } ],
+    "strip_context_path" : false,
+    "preserve_host" : false,
+    "groups" : [ {
+      "name" : "default-group",
+      "endpoints" : [ {
+        "tenants" : [ ],
+        "healthcheck" : {
+          "inherit" : true,
+          "enabled" : true
+        },
+        "backup" : false,
+        "inherit" : true,
+        "name" : "default",
+        "weight" : 1,
+        "type" : "http",
+        "target" : "https://corporatebs-generator.sameerkumar.website/"
+      }, {
+        "healthcheck" : {
+          "inherit" : true,
+          "enabled" : true
+        },
+        "backup" : false,
+        "inherit" : true,
+        "name" : "Star wars API",
+        "weight" : 1,
+        "type" : "http",
+        "target" : "https://swapi.dev/api/"
+      } ],
+      "load_balancing" : {
+        "type" : "ROUND_ROBIN"
+      },
+      "http" : {
+        "connectTimeout" : 5000,
+        "idleTimeout" : 60000,
+        "keepAlive" : true,
+        "readTimeout" : 10000,
+        "pipelining" : false,
+        "maxConcurrentConnections" : 100,
+        "useCompression" : true,
+        "followRedirects" : false
+      }
+    } ]
+  },
+  "response_templates" : { },
+  "primaryOwner" : {
+    "id" : "9ee432ae-7b36-41bc-a432-ae7b36b1bccd",
+    "displayName" : "admin",
+    "type" : "USER"
+  }
+}

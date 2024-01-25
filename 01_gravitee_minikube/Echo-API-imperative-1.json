@@ -1,0 +1,115 @@
+{
+  "name" : "Echo API imperative",
+  "crossId" : "41d54e6a-01c2-4b21-954e-6a01c2ab217a",
+  "version" : "1",
+  "execution_mode" : "v4-emulation-engine",
+  "description" : "This API was originally created manually in the console.",
+  "visibility" : "PRIVATE",
+  "flows" : [ ],
+  "gravitee" : "2.0.0",
+  "flow_mode" : "DEFAULT",
+  "resources" : [ ],
+  "properties" : [ ],
+  "members" : [ {
+    "source" : "memory",
+    "sourceId" : "admin",
+    "roles" : [ "a8a8d874-11e0-42fb-a8d8-7411e0d2fb28" ]
+  } ],
+  "pages" : [ {
+    "id" : "d0d48425-8267-4439-9484-2582671439cd",
+    "crossId" : "fbefb5a0-e07a-49c8-afb5-a0e07a29c868",
+    "name" : "Aside",
+    "type" : "SYSTEM_FOLDER",
+    "order" : 0,
+    "published" : true,
+    "visibility" : "PUBLIC",
+    "lastModificationDate" : 1705500702230,
+    "contentType" : "application/json",
+    "homepage" : false,
+    "parentPath" : "",
+    "excludedAccessControls" : false,
+    "accessControls" : [ ],
+    "api" : "22062f84-abc8-4341-862f-84abc85341aa",
+    "attached_media" : [ ]
+  } ],
+  "plans" : [ {
+    "id" : "55ca67bc-d1a2-4030-8a67-bcd1a29030da",
+    "crossId" : "33abbe93-4fbb-4dab-abbe-934fbb6daba2",
+    "name" : "Keyless",
+    "description" : "Keyless plan",
+    "validation" : "AUTO",
+    "security" : "KEY_LESS",
+    "type" : "API",
+    "status" : "PUBLISHED",
+    "api" : "22062f84-abc8-4341-862f-84abc85341aa",
+    "order" : 0,
+    "characteristics" : [ ],
+    "tags" : [ ],
+    "created_at" : 1705500654091,
+    "updated_at" : 1705500702225,
+    "published_at" : 1705500654092,
+    "paths" : { },
+    "comment_required" : false,
+    "flows" : [ {
+      "id" : "416ff4c7-0129-4227-aff4-c701298227ba",
+      "path-operator" : {
+        "path" : "/",
+        "operator" : "STARTS_WITH"
+      },
+      "condition" : "",
+      "consumers" : [ ],
+      "methods" : [ ],
+      "pre" : [ ],
+      "post" : [ ],
+      "enabled" : true
+    } ]
+  } ],
+  "metadata" : [ {
+    "key" : "email-support",
+    "name" : "email-support",
+    "format" : "MAIL",
+    "value" : "${(api.primaryOwner.email)!''}",
+    "defaultValue" : "support@change.me",
+    "apiId" : "22062f84-abc8-4341-862f-84abc85341aa"
+  } ],
+  "id" : "22062f84-abc8-4341-862f-84abc85341aa",
+  "path_mappings" : [ ],
+  "proxy" : {
+    "virtual_hosts" : [ {
+      "path" : "/echo-imperative/"
+    } ],
+    "strip_context_path" : false,
+    "preserve_host" : false,
+    "groups" : [ {
+      "name" : "default-group",
+      "endpoints" : [ {
+        "name" : "default",
+        "target" : "http://gravitee-echo-api.gravitee.svc.cluster.local:80",
+        "inherit" : true,
+        "weight" : 1,
+        "backup" : false,
+        "type" : "http"
+      } ],
+      "load_balancing" : {
+        "type" : "ROUND_ROBIN"
+      },
+      "http" : {
+        "connectTimeout" : 5000,
+        "idleTimeout" : 60000,
+        "keepAlive" : true,
+        "readTimeout" : 10000,
+        "pipelining" : false,
+        "maxConcurrentConnections" : 100,
+        "useCompression" : true,
+        "followRedirects" : false
+      }
+    } ]
+  },
+  "response_templates" : { },
+  "primaryOwner" : {
+    "id" : "1abb72f7-30fc-48b2-bb72-f730fca8b203",
+    "email" : "",
+    "displayName" : "admin",
+    "type" : "USER"
+  }
+}

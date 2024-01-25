@@ -1,0 +1,38 @@
+
+# Deploy an elasticsearch cluster.
+elasticsearch:
+  enabled: true
+  master:
+    masterOnly: false
+    replicaCount: 1
+  data:
+    replicaCount: 0
+  coordinating:
+    replicaCount: 0
+  ingest:
+    replicaCount: 0
+
+# Elasticsearch uri, do not change.
+es:
+  endpoints:
+    - http://graviteeio-apim-elasticsearch-master-hl.gravitee.svc.cluster.local:9200
+
+# Deploy a mongoDB cluster.
+mongodb:
+  enabled: true
+  image:
+    repository: mongo
+    tag: 6.0.4-jammy
+  architecture: standalone
+  persistence:
+    mountPath: /data/db
+
+# MongoDB uri, do not change.
+mongo:
+  uri: mongodb://graviteeio-apim-mongodb-replicaset.gravitee.svc.cluster.local/gravitee?connectTimeoutMS=30000
+
+gateway:
+  ingress:
+    annotations:
+      nginx.ingress.kubernetes.io/rewrite-target: /$1
+    path: /gateway/?(.*)
