@@ -20,6 +20,13 @@ source <(kubectl completion zsh)
 
 Add that command to your ~/.zshrc file (create it if it doesn't exist).
 
+Make sure you also have these two commands early in your `.zshrc` file:
+
+```sh
+autoload -Uz compinit
+compinit
+```
+
 You can now hit `TAB` to autocomplete on everything with `kubectl`, can't live without it. 
 
 ### Install kubens

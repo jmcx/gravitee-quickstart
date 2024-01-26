@@ -2,6 +2,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: gravitee-echo-api
+  namespace: gravitee
   labels:
     app: gravitee-echo-api
     service: gravitee-echo-api
@@ -17,6 +18,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: gravitee-echo-api
+  namespace: gravitee
 spec:
   replicas: 1
   selector:
