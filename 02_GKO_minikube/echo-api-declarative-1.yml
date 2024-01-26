@@ -2,6 +2,7 @@ apiVersion: gravitee.io/v1alpha1
 kind: ApiDefinition
 metadata:
   name: echo-api-declarative
+  namespace: gravitee
 spec:
   name: "Echo API Declarative"
   contextRef: 
