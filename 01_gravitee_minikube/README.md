@@ -39,7 +39,7 @@ The approach here is based on a simplified version of the Helm values file `valu
 > If your default edit is `vi`, then enter `i` to enter edit mode, paste the annotation in the right place, hit `ESC` to leave edit mode, and hit `:wq` followed by `ENTER` to save and exit. 
 >
 > ```sh
-> k edit cm ingress-nginx-controller -n ingress-nginx
+> kubectl edit cm ingress-nginx-controller -n ingress-nginx
 > ```
 >
 > ```sh
