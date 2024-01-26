@@ -34,13 +34,13 @@ helm install graviteeio-gko graviteeio/gko --set manager.image.tag=0.11.0 --name
 Create the management context. This resource will tell GKO which Gravitee control plane it should connect to, by pointing to the right Gravitee management API we deployed in the previous chapter. What GKO essentially does is translate between declarative `kubectl` commands and calls to this management API:
 
 ```sh
-kubectl apply -f management-context-with-credentials.yml
+kubectl apply -f management-context-with-credentials.yml --namespace gravitee
 ```
 
 Create an API declaratively. This API also points to the same Echo API service we used previously, but will expose it on a different path which is `/echo-declarative`:
 
 ```sh
-kubectl apply -f echo-api-declarative-1.yml
+kubectl apply -f echo-api-declarative-1.yml --namespace gravitee
 ```
 
 You should now be able to see this API in the Console UI, with a Kubernetes logo next to it signifying that this API is managed by GKO and is shown as read-only in the Console. 
