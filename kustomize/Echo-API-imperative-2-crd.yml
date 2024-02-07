@@ -1,0 +1,107 @@
+---
+apiVersion: "gravitee.io/v1alpha1"
+kind: "ApiDefinition"
+metadata:
+  name: "Echo API v2"
+  annotations: {}
+  labels: {}
+spec:
+  name: "Echo API v2"
+  crossId: "41d54e6a-01c2-4b21-954e-6a01c2ab217a"
+  version: "2"
+  description: "My echo API"
+  visibility: "PRIVATE"
+  gravitee: "2.0.0"
+  flow_mode: "DEFAULT"
+  plans:
+  - id: "e45f090d-4c61-3cb2-a671-db3ea6696a2d"
+    crossId: "33abbe93-4fbb-4dab-abbe-934fbb6daba2"
+    name: "Keyless"
+    description: "Keyless plan"
+    validation: "AUTO"
+    security: "KEY_LESS"
+    type: "API"
+    status: "PUBLISHED"
+    api: "0009bc52-7785-397f-bf4b-e3bfec837968"
+    order: 0
+    characteristics: []
+    tags: []
+    paths: {}
+    comment_required: false
+    flows:
+    - id: "bfb50108-9e2e-491c-b501-089e2e291ca0"
+      path-operator:
+        path: "/"
+        operator: "STARTS_WITH"
+      condition: ""
+      consumers: []
+      methods: []
+      pre: []
+      post: []
+      enabled: true
+  - id: "298e9dd6-02a0-4ff8-8e9d-d602a0fff830"
+    crossId: "24ede462-7dd3-40a1-ade4-627dd300a16a"
+    name: "My API key plan"
+    description: ""
+    validation: "MANUAL"
+    security: "API_KEY"
+    securityDefinition: "{ }"
+    type: "API"
+    status: "PUBLISHED"
+    api: "0009bc52-7785-397f-bf4b-e3bfec837968"
+    order: 1
+    characteristics: []
+    tags: []
+    paths: {}
+    excluded_groups: []
+    comment_required: false
+    comment_message: ""
+    general_conditions: ""
+    flows:
+    - id: "d64077bd-e755-438b-8077-bde755838b70"
+      path-operator:
+        path: "/"
+        operator: "STARTS_WITH"
+      consumers: []
+      methods: []
+      pre: []
+      post: []
+      enabled: true
+  metadata:
+  - key: "email-support"
+    name: "email-support"
+    format: "MAIL"
+    value: "${(api.primaryOwner.email)!''}"
+    defaultValue: "support@change.me"
+  id: "0009bc52-7785-397f-bf4b-e3bfec837968"
+  path_mappings: []
+  proxy:
+    virtual_hosts:
+    - path: "/echo-imperative"
+    strip_context_path: false
+    preserve_host: false
+    groups:
+    - name: "default-group"
+      endpoints:
+      - type: "http"
+        name: "default"
+        target: "http://gravitee-echo-api.gravitee.svc.cluster.local:80"
+        weight: 1
+        backup: false
+        status: "UP"
+        inherit: true
+        proxy: null
+        http: null
+        ssl: null
+      load_balancing:
+        type: "ROUND_ROBIN"
+      http:
+        connectTimeout: 5000
+        idleTimeout: 60000
+        keepAlive: true
+        readTimeout: 10000
+        pipelining: false
+        maxConcurrentConnections: 100
+        useCompression: true
+        followRedirects: false
+  response_templates: {}

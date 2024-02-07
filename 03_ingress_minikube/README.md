@@ -32,6 +32,12 @@ gateway:
     externalPort: 443
 ```
 
+If you have already added the Gravitee Helm charts, make sure they are up to date with the following command:
+
+```sh
+helm repo update graviteeio
+```
+
 We'll apply this new values.yml file:
 
 ```sh

@@ -15,6 +15,12 @@ You'll notice that the `02_values.yml` we use here has a small addition to the `
         enabled: true
 ```
 
+If you have already added the Gravitee Helm charts, make sure they are up to date with the following command:
+
+```sh
+helm repo update graviteeio
+```
+
 So we'll start by updating our installation with this new `values.yml` file:
 
 ```sh
@@ -25,7 +31,7 @@ You should see the gateway pod restart as it updates its configuration.
 
 Now we can install the GKO helm chart:
 
-> !!! There was an issue at time of writing requirement the extra `0.11.0` tag shown below, hopefully this won't been needed as of February 2024.
+> !!! There was [an issue](https://gravitee.atlassian.net/browse/APIM-3747) at time of writing requiring the extra `0.11.0` tag shown below in order to make sure we install the latest "stable" release of GKO (in this case, avoiding 1.0.0-x.beta versions). Once this fix is released you won't needed to specify this additional paramater.
 
 ```sh
 helm install graviteeio-gko graviteeio/gko --set manager.image.tag=0.11.0 --namespace gravitee
@@ -68,3 +74,4 @@ curl apim.example.com/gateway/echo-declarative
   }
 }
 ```
+

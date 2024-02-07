@@ -58,6 +58,12 @@ Now add the Gravitee Helm chart repository:
 helm repo add graviteeio https://helm.gravitee.io
 ```
 
+If you have already added the Gravitee Helm charts, make sure they are up to date with the following command:
+
+```sh
+helm repo update graviteeio
+```
+
 If you want to use the enterprise version of the product, following the instructions below to add your enterprise license as a Helm argument:
 
 > **ADDING A LICENSE** 
@@ -73,6 +79,7 @@ If you want to use the enterprise version of the product, following the instruct
 > Two example equivalent commands for macOS:
 >
 > `export GRAVITEESOURCE_LICENSE_B64="$(cat license.key | base64)"`
+>
 > `export GRAVITEESOURCE_LICENSE_B64="$(base64 -i license.key)"`
 >
 > *ALTERNATIVE:* You can also reference your license directly in the values.yaml file, at the root as shown below. Less advisable as you might want to push this values.yaml to version control somewhere.
@@ -111,7 +118,7 @@ If later on you make changes to the values.yaml file you can upgrade the install
 helm upgrade --set license.key=${GRAVITEESOURCE_LICENSE_B64} --install gravitee-apim graviteeio/apim -f 01_values.yml --namespace gravitee
 ```
 
-And you can comletely delete the installation with:
+And you can completely delete the installation with:
 
 ```sh
 helm delete gravitee-apim
