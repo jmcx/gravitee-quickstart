@@ -34,7 +34,7 @@ Now we can install the GKO helm chart:
 > !!! There was [an issue](https://gravitee.atlassian.net/browse/APIM-3747) at time of writing requiring the extra `0.11.0` tag shown below in order to make sure we install the latest "stable" release of GKO (in this case, avoiding 1.0.0-x.beta versions). Once this fix is released you won't needed to specify this additional paramater.
 
 ```sh
-helm install graviteeio-gko graviteeio/gko --set manager.image.tag=0.11.0 --namespace gravitee
+helm install graviteeio-gko graviteeio/gko --namespace gravitee
 ```
 
 Create the management context. This resource will tell GKO which Gravitee control plane it should connect to, by pointing to the right Gravitee management API we deployed in the previous chapter. What GKO essentially does is translate between declarative `kubectl` commands and calls to this management API:
