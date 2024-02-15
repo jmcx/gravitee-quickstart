@@ -1,0 +1,18 @@
+apiVersion: gravitee.io/v1alpha1
+kind: Application
+metadata:
+  name: my-kubernetes-application
+  namespace: gravitee
+spec:
+  contextRef:
+    name: "dev-ctx"
+    namespace: "gravitee"
+  name: "My Kubernetes Application"
+  type: "WEB"
+  domain: "https://example.com"
+  description: "Application created using GKO"
+  applicationMetaData:
+    - name: "test metadata"
+      format: "STRING"
+    - name: "test metadata 2"
+      format: "STRING"

@@ -1,5 +1,7 @@
 # Gravitee Kubernetes Operator (GKO) on minikube
 
+## Install GKO
+
 Change into the folder for this step of the tutorial:
 
 ```sh
@@ -37,11 +39,15 @@ Now we can install the GKO helm chart:
 helm install graviteeio-gko graviteeio/gko --namespace gravitee
 ```
 
+## Create a Management Context
+
 Create the management context. This resource will tell GKO which Gravitee control plane it should connect to, by pointing to the right Gravitee management API we deployed in the previous chapter. What GKO essentially does is translate between declarative `kubectl` commands and calls to this management API:
 
 ```sh
 kubectl apply -f management-context-with-credentials.yml --namespace gravitee
 ```
+
+## Create an API
 
 Create an API declaratively. This API also points to the same Echo API service we used previously, but will expose it on a different path which is `/echo-declarative`:
 
@@ -75,3 +81,12 @@ curl apim.example.com/gateway/echo-declarative
 }
 ```
 
+## Create an Application
+
+We can create an Application declaratively. The Application CRD also references the management context, and includes many other options you might want to specify when creating an application:
+
+```sh
+kubectl apply -f application.yml --namespace gravitee
+```
+
+You should now be able to see this API in the console. 
