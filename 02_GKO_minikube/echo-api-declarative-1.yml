@@ -9,6 +9,7 @@ spec:
     name: "dev-ctx"
     namespace: "gravitee"
   version: "1"
+  state: "STARTED"
   description: "Gravitee Kubernetes Operator sample"
   plans:
     - name: "KEY_LESS"

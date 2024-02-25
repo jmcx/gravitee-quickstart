@@ -8,7 +8,7 @@ Change into the folder for this step of the tutorial:
 cd ../02_GKO_minikube
 ```
 
-You'll notice that the `02_values.yml` we use here has a small addition to the `01_values.yml` that we used in the previous step. The added config (shown below) enables GKO to work with the Gravitee gateway:
+You'll notice that the `02_values.yml` we use here has a small addition to the `01_values.yml` that we used in the previous step. The added config (shown below) enables GKO to work with the Gravitee gateway, by telling that gateway that it should load API configs from a Kubernetes configMap, instead of from the database:
 
 ```yaml
   services:
@@ -89,4 +89,4 @@ We can create an Application declaratively. The Application CRD also references 
 kubectl apply -f application.yml --namespace gravitee
 ```
 
-You should now be able to see this API in the console. 
+You should now be able to see this API in the console.

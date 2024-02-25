@@ -58,3 +58,10 @@ brew install kubectx
 
 With brew install, tab-autocompletion should work out of the box. 
 
+### Other helpful commands
+
+If at any point you want to restart a pod during troubleshoot, you can do this by referencing the associated deployment:
+
+```sh
+k rollout restart deployment <deployment name>
+```
