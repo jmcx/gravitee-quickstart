@@ -10,6 +10,7 @@ spec:
     namespace: "gravitee"
   version: "1"
   state: "STARTED"
+  lifecycle_state: "PUBLISHED"
   description: "Gravitee Kubernetes Operator sample"
   plans:
     - name: "KEY_LESS"
