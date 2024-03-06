@@ -26,7 +26,7 @@ helm repo update graviteeio
 So we'll start by updating our installation with this new `values.yml` file:
 
 ```sh
-helm upgrade --set license.key=${GRAVITEESOURCE_LICENSE_B64} --install gravitee-apim graviteeio/apim -f 02_values.yml --namespace gravitee
+helm upgrade --set license.key=${GRAVITEESOURCE_LICENSE_B64} --install gravitee-apim graviteeio/apim -f 02_values.yml --create-namespace --namespace gravitee
 ```
 
 You should see the gateway pod restart as it updates its configuration.
