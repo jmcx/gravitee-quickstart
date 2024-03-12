@@ -1,0 +1,114 @@
+{
+  "name" : "My Echo API",
+  "crossId" : "734db30f-f4f3-4a65-8db3-0ff4f3da65e6",
+  "version" : "0.1",
+  "execution_mode" : "v4-emulation-engine",
+  "description" : "This API echos back information from the caller.",
+  "visibility" : "PRIVATE",
+  "flows" : [ ],
+  "gravitee" : "2.0.0",
+  "flow_mode" : "DEFAULT",
+  "resources" : [ ],
+  "properties" : [ ],
+  "members" : [ {
+    "source" : "memory",
+    "sourceId" : "admin",
+    "roles" : [ "e617b62e-fc56-40b9-97b6-2efc5660b948" ]
+  } ],
+  "pages" : [ {
+    "id" : "33aba13d-35e5-40a3-aba1-3d35e560a31e",
+    "crossId" : "6286d81d-f7af-401b-86d8-1df7af401b9b",
+    "name" : "Aside",
+    "type" : "SYSTEM_FOLDER",
+    "order" : 0,
+    "published" : true,
+    "visibility" : "PUBLIC",
+    "lastModificationDate" : 1710217948325,
+    "contentType" : "application/json",
+    "homepage" : false,
+    "parentPath" : "",
+    "excludedAccessControls" : false,
+    "accessControls" : [ ],
+    "api" : "bf677180-1053-42ef-a771-801053b2ef86",
+    "attached_media" : [ ]
+  } ],
+  "plans" : [ {
+    "id" : "d1ca294a-e634-47a3-8a29-4ae63407a3b6",
+    "crossId" : "a425b3e1-7d26-4ba7-a5b3-e17d264ba7f3",
+    "name" : "Keyless plan",
+    "description" : "This is my Keyless plan.",
+    "validation" : "AUTO",
+    "security" : "KEY_LESS",
+    "type" : "API",
+    "status" : "PUBLISHED",
+    "api" : "bf677180-1053-42ef-a771-801053b2ef86",
+    "order" : 0,
+    "characteristics" : [ ],
+    "tags" : [ ],
+    "created_at" : 1710217933473,
+    "updated_at" : 1710217948319,
+    "published_at" : 1710217933473,
+    "paths" : { },
+    "comment_required" : false,
+    "flows" : [ {
+      "id" : "4df03d08-b5ff-4354-b03d-08b5ffd354e4",
+      "path-operator" : {
+        "path" : "/",
+        "operator" : "STARTS_WITH"
+      },
+      "condition" : "",
+      "consumers" : [ ],
+      "methods" : [ ],
+      "pre" : [ ],
+      "post" : [ ],
+      "enabled" : true
+    } ]
+  } ],
+  "metadata" : [ {
+    "key" : "email-support",
+    "name" : "email-support",
+    "format" : "MAIL",
+    "value" : "${(api.primaryOwner.email)!''}",
+    "defaultValue" : "support@change.me",
+    "apiId" : "bf677180-1053-42ef-a771-801053b2ef86"
+  } ],
+  "id" : "bf677180-1053-42ef-a771-801053b2ef86",
+  "path_mappings" : [ ],
+  "proxy" : {
+    "virtual_hosts" : [ {
+      "path" : "/echo/"
+    } ],
+    "strip_context_path" : false,
+    "preserve_host" : false,
+    "groups" : [ {
+      "name" : "default-group",
+      "endpoints" : [ {
+        "name" : "default",
+        "target" : "http://host.docker.internal:8099/echo",
+        "inherit" : true,
+        "weight" : 1,
+        "backup" : false,
+        "type" : "http"
+      } ],
+      "load_balancing" : {
+        "type" : "ROUND_ROBIN"
+      },
+      "http" : {
+        "connectTimeout" : 5000,
+        "idleTimeout" : 60000,
+        "keepAlive" : true,
+        "readTimeout" : 10000,
+        "pipelining" : false,
+        "maxConcurrentConnections" : 100,
+        "useCompression" : true,
+        "followRedirects" : false
+      }
+    } ]
+  },
+  "response_templates" : { },
+  "primaryOwner" : {
+    "id" : "dbff24aa-89cd-4555-bf24-aa89cdd555e2",
+    "displayName" : "admin",
+    "type" : "USER"
+  }
+}

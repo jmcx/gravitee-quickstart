@@ -30,6 +30,15 @@ volumes:
   redpanda-0: null
 
 services:
+
+  gravitee-echo-api:
+    image: graviteeio/gravitee-echo-api
+    ports:
+      - "8099:8080"
+    networks:
+      - storage
+      - frontend
+
   mongodb:
     image: mongo:${MONGODB_VERSION:-6.0.8}
     container_name: gio_apim_mongodb
@@ -73,7 +82,7 @@ services:
       - elasticsearch
     volumes:
       - ./logs/apim-gateway:/opt/graviteeio-gateway/logs
-      - ./license/license.key:/opt/graviteeio-gateway/license/license.key
+      - ./license/dev_license_2024-12-31.key:/opt/graviteeio-gateway/license/license.key
     environment:
       - gravitee_management_mongodb_uri=mongodb://mongodb:27017/gravitee?serverSelectionTimeoutMS=5000&connectTimeoutMS=5000&socketTimeoutMS=5000
       - gravitee_ratelimit_mongodb_uri=mongodb://mongodb:27017/gravitee?serverSelectionTimeoutMS=5000&connectTimeoutMS=5000&socketTimeoutMS=5000
@@ -96,7 +105,7 @@ services:
       - elasticsearch
     volumes:
       - ./logs/apim-management-api:/opt/graviteeio-management-api/logs
-      - ./license/license.key:/opt/graviteeio-management-api/license/license.key
+      - ./license/dev_license_2024-12-31.key:/opt/graviteeio-management-api/license/license.key
     environment:
       - gravitee_management_mongodb_uri=mongodb://mongodb:27017/gravitee?serverSelectionTimeoutMS=5000&connectTimeoutMS=5000&socketTimeoutMS=5000
       - gravitee_analytics_elasticsearch_endpoints_0=http://elasticsearch:9200
