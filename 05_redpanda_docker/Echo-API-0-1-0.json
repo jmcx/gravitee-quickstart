@@ -4,7 +4,7 @@
   "version" : "0.1",
   "execution_mode" : "v4-emulation-engine",
   "description" : "This API echos back information from the caller.",
-  "visibility" : "PRIVATE",
+  "visibility" : "PUBLIC",
   "flows" : [ ],
   "gravitee" : "2.0.0",
   "flow_mode" : "DEFAULT",
@@ -33,30 +33,72 @@
     "attached_media" : [ ]
   } ],
   "plans" : [ {
-    "id" : "d1ca294a-e634-47a3-8a29-4ae63407a3b6",
-    "crossId" : "a425b3e1-7d26-4ba7-a5b3-e17d264ba7f3",
-    "name" : "Keyless plan",
-    "description" : "This is my Keyless plan.",
+    "id" : "b147d681-ab49-4741-87d6-81ab490741f1",
+    "crossId" : "880f5b92-4dfa-453c-8f5b-924dfae53c0d",
+    "name" : "Limited Keyless Plan",
+    "description" : "",
     "validation" : "AUTO",
     "security" : "KEY_LESS",
+    "securityDefinition" : "{ }",
     "type" : "API",
     "status" : "PUBLISHED",
     "api" : "bf677180-1053-42ef-a771-801053b2ef86",
-    "order" : 0,
+    "order" : 1,
     "characteristics" : [ ],
     "tags" : [ ],
-    "created_at" : 1710217933473,
-    "updated_at" : 1710217948319,
-    "published_at" : 1710217933473,
+    "created_at" : 1710218889006,
+    "updated_at" : 1710219021705,
+    "published_at" : 1710218892487,
     "paths" : { },
+    "excluded_groups" : [ ],
     "comment_required" : false,
+    "comment_message" : "",
+    "general_conditions" : "",
     "flows" : [ {
-      "id" : "4df03d08-b5ff-4354-b03d-08b5ffd354e4",
+      "id" : "ce142c26-69be-4f05-942c-2669be2f05ac",
       "path-operator" : {
         "path" : "/",
         "operator" : "STARTS_WITH"
       },
-      "condition" : "",
+      "consumers" : [ ],
+      "methods" : [ ],
+      "pre" : [ {
+        "name" : "Rate Limiting",
+        "enabled" : true,
+        "policy" : "rate-limit",
+        "configuration" : {"async":false,"addHeaders":false,"rate":{"key":"","limit":3,"dynamicLimit":"3","periodTime":10,"periodTimeUnit":"SECONDS"}}
+      } ],
+      "post" : [ ],
+      "enabled" : true
+    } ]
+  }, {
+    "id" : "df943552-3db6-4fca-9435-523db61fcac3",
+    "crossId" : "9988d6e1-8389-437e-88d6-e18389c37ec5",
+    "name" : "API Key plan",
+    "description" : "",
+    "validation" : "MANUAL",
+    "security" : "API_KEY",
+    "securityDefinition" : "{ }",
+    "type" : "API",
+    "status" : "PUBLISHED",
+    "api" : "bf677180-1053-42ef-a771-801053b2ef86",
+    "order" : 2,
+    "characteristics" : [ ],
+    "tags" : [ ],
+    "created_at" : 1710218965420,
+    "updated_at" : 1710219021713,
+    "published_at" : 1710218969731,
+    "paths" : { },
+    "excluded_groups" : [ ],
+    "comment_required" : false,
+    "comment_message" : "",
+    "general_conditions" : "",
+    "flows" : [ {
+      "id" : "dce657b4-bca1-4e3e-a657-b4bca16e3e86",
+      "path-operator" : {
+        "path" : "/",
+        "operator" : "STARTS_WITH"
+      },
       "consumers" : [ ],
       "methods" : [ ],
       "pre" : [ ],
@@ -76,19 +118,23 @@
   "path_mappings" : [ ],
   "proxy" : {
     "virtual_hosts" : [ {
-      "path" : "/echo/"
+      "path" : "/echo"
     } ],
     "strip_context_path" : false,
     "preserve_host" : false,
     "groups" : [ {
       "name" : "default-group",
       "endpoints" : [ {
+        "type" : "http",
         "name" : "default",
         "target" : "http://host.docker.internal:8099/echo",
-        "inherit" : true,
         "weight" : 1,
         "backup" : false,
-        "type" : "http"
+        "status" : "UP",
+        "inherit" : true,
+        "proxy" : null,
+        "http" : null,
+        "ssl" : null
       } ],
       "load_balancing" : {
         "type" : "ROUND_ROBIN"

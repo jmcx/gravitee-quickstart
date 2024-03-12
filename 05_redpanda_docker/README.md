@@ -43,13 +43,13 @@ Deploy it and **START** it!
 API key plan:
 
 ```sh
-curl http://localhost:8082/quotev2 -H "X-Gravitee-Api-Key: 390a0b82-85f9-49d7-b50c-b5b00b97c491" 
+curl http://localhost:8082/echo -H "X-Gravitee-Api-Key: 390a0b82-85f9-49d7-b50c-b5b00b97c491" 
 ```
 
 Keyless plan (rate limited):
 
 ```sh
-curl "localhost:8082/quotev2"
+curl "localhost:8082/echo"
 ```
 
 ## Trigger the event API

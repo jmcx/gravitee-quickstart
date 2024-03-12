@@ -80,32 +80,33 @@
     },
     "flows" : [ ],
     "id" : "011183f6-f59e-40cc-9183-f6f59ec0cc19",
-    "name" : "Product orders V2 API",
+    "name" : "Product orders event API",
     "description" : "",
     "apiVersion" : "1.0",
-    "deployedAt" : "2023-11-27T21:58:09.808Z",
-    "createdAt" : "2023-11-21T10:22:28.526Z",
-    "updatedAt" : "2023-11-27T21:58:09.808Z",
+    "deployedAt" : "2024-03-12T04:52:04.026Z",
+    "createdAt" : "2024-03-12T04:51:50.385Z",
+    "updatedAt" : "2024-03-12T05:34:30.978Z",
     "disableMembershipNotifications" : false,
     "groups" : [ ],
     "state" : "STARTED",
-    "visibility" : "PRIVATE",
-    "lifecycleState" : "PUBLISHED",
+    "visibility" : "PUBLIC",
+    "lifecycleState" : "UNPUBLISHED",
     "tags" : [ ],
     "primaryOwner" : {
-      "id" : "9ee432ae-7b36-41bc-a432-ae7b36b1bccd",
+      "id" : "dbff24aa-89cd-4555-bf24-aa89cdd555e2",
       "displayName" : "admin",
       "type" : "USER"
     },
     "definitionContext" : {
       "origin" : "MANAGEMENT",
-      "mode" : "FULLY_MANAGED"
+      "mode" : "FULLY_MANAGED",
+      "syncFrom" : "MANAGEMENT"
     },
     "responseTemplates" : { },
     "properties" : [ ]
   },
   "members" : [ {
-    "id" : "9ee432ae-7b36-41bc-a432-ae7b36b1bccd",
+    "id" : "dbff24aa-89cd-4555-bf24-aa89cdd555e2",
     "displayName" : "admin",
     "roles" : [ {
       "name" : "PRIMARY_OWNER",
@@ -119,7 +120,21 @@
     "value" : "${(api.primaryOwner.email)!''}",
     "defaultValue" : "support@change.me"
   } ],
-  "pages" : [ ],
+  "pages" : [ {
+    "id" : "66fea134-8053-46bd-bea1-34805376bd21",
+    "name" : "Aside",
+    "type" : "SYSTEM_FOLDER",
+    "order" : 0,
+    "published" : true,
+    "visibility" : "PUBLIC",
+    "updatedAt" : "2024-03-12T04:51:50.458Z",
+    "contentType" : "application/json",
+    "homepage" : false,
+    "parentPath" : "",
+    "excludedAccessControls" : false,
+    "accessControls" : [ ],
+    "attachedMedia" : [ ]
+  } ],
   "plans" : [ {
     "definitionVersion" : "V4",
     "flows" : [ {
@@ -147,15 +162,15 @@
     "characteristics" : [ ],
     "commentMessage" : "",
     "commentRequired" : false,
-    "createdAt" : "2023-11-27T21:41:44.066Z",
+    "createdAt" : "2024-03-12T04:51:50.417Z",
     "excludedGroups" : [ ],
     "generalConditions" : "",
     "order" : 2,
-    "publishedAt" : "2023-11-27T21:41:47.512Z",
+    "publishedAt" : "2024-03-12T04:51:50.417Z",
     "status" : "PUBLISHED",
     "tags" : [ ],
     "type" : "API",
-    "updatedAt" : "2023-11-27T21:41:47.512Z",
+    "updatedAt" : "2024-03-12T04:51:50.417Z",
     "validation" : "AUTO"
   }, {
     "definitionVersion" : "V4",
@@ -180,15 +195,15 @@
     "characteristics" : [ ],
     "commentMessage" : "",
     "commentRequired" : false,
-    "createdAt" : "2023-11-21T12:46:22.538Z",
+    "createdAt" : "2024-03-12T04:51:50.425Z",
     "excludedGroups" : [ ],
     "generalConditions" : "",
     "order" : 1,
-    "publishedAt" : "2023-11-27T20:56:16.885Z",
+    "publishedAt" : "2024-03-12T04:51:50.425Z",
     "status" : "PUBLISHED",
     "tags" : [ ],
     "type" : "API",
-    "updatedAt" : "2023-11-27T20:56:16.885Z",
+    "updatedAt" : "2024-03-12T04:51:50.425Z",
     "validation" : "AUTO"
   } ],
   "apiMedia" : [ ]
