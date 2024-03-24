@@ -23,4 +23,5 @@ spec:
       - endpoints:
           - name: "Default"
             target: "http://gravitee-echo-api.gravitee.svc.cluster.local:80"
-  local: true
+  local: false
+  # tag: ["shardingtag1"]
