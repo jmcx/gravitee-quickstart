@@ -32,7 +32,9 @@ mongo:
   uri: mongodb://graviteeio-apim-mongodb-replicaset.gravitee.svc.cluster.local/gravitee?connectTimeoutMS=30000
 
 gateway:
-  replicaCount: 2
+  # replicaCount: 2
+  # autoscaling:
+  #     enabled: false
   ingress:
     annotations:
       nginx.ingress.kubernetes.io/rewrite-target: /$1

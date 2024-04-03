@@ -5,9 +5,6 @@ metadata:
   namespace: gravitee
 spec:
   name: "Echo API Declarative"
-  contextRef: 
-    name: "dev-ctx"
-    namespace: "gravitee"
   version: "1"
   state: "STARTED"
   lifecycle_state: "PUBLISHED"
