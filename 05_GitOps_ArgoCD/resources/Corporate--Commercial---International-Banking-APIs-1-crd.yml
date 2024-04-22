@@ -2,7 +2,7 @@
 apiVersion: "gravitee.io/v1alpha1"
 kind: "ApiDefinition"
 metadata:
-  name: "Corporate, Commercial & International Banking APIs"
+  name: "corporate-banking-api"
 spec:
   name: "Corporate, Commercial & International Banking APIs"
   version: "1"
