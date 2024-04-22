@@ -42,11 +42,8 @@ argocd login --core
 Now we can start building ArgoCD applications, which are the unit of deployment that ArgoCD will track. An application points to a repository that contains the Kubernetes manifests for the resources that we want to deploy. In this case, we'll point to https://github.com/jmcx/gravitee-quickstart.git that contains some example API CRDs that we can deploy. 
 
 ```sh
-argocd app create graviteegitopsapis --repo https://github.com/jmcx/gravitee-quickstart.git --path 05_GitOps_ArgoCD/resources --dest-server https://kubernetes.default.svc --dest-namespace default
-```
-
-```sh
-argocd app create graviteesampleapicrds --repo https://github.com/gravitee-io/gravitee-kubernetes-operator --path examples/apim/api_definition --dest-server https://kubernetes.default.svc --dest-namespace default
+argocd app create graviteegitopsapis --repo https://github.com/jmcx/gravitee-quickstart.git --path 05_GitOps_ArgoCD/resources --dest-server https://kubernetes.default.svc --dest-namespace gravitee
+application 'graviteegitopsapis' created
 ```
 
 
@@ -55,7 +52,7 @@ argocd app create graviteesampleapicrds --repo https://github.com/gravitee-io/gr
 Name:               argocd/graviteegitopsapis
 Project:            default
 Server:             https://kubernetes.default.svc
-Namespace:          default
+Namespace:          gravitee
 URL:                http://localhost:51317/applications/graviteegitopsapis
 Repo:               https://github.com/jmcx/gravitee-quickstart.git
 Target:             
@@ -71,54 +68,28 @@ gravitee.io  ApiDefinition  gravitee   echo-api-argocd  OutOfSync  Missing
 
 ```sh
 % argocd app sync graviteegitopsapis
-TIMESTAMP                  GROUP              KIND      NAMESPACE                  NAME    STATUS    HEALTH        HOOK  MESSAGE
-2024-04-18T22:44:27+02:00  gravitee.io  ApiDefinition    gravitee       echo-api-argocd  OutOfSync  Missing              
-2024-04-18T22:44:27+02:00  gravitee.io  ApiDefinition    gravitee       echo-api-argocd  OutOfSync  Missing              apidefinition.gravitee.io/echo-api-argocd created
-2024-04-18T22:44:27+02:00  gravitee.io  ApiDefinition    gravitee       echo-api-argocd    Synced  Missing              apidefinition.gravitee.io/echo-api-argocd created
-
-Name:               argocd/graviteegitopsapis
-Project:            default
-Server:             https://kubernetes.default.svc
-Namespace:          default
-URL:                http://localhost:51365/applications/graviteegitopsapis
-Repo:               https://github.com/jmcx/gravitee-quickstart.git
-Target:             
-Path:               05_GitOps_ArgoCD/resources
-SyncWindow:         Sync Allowed
-Sync Policy:        <none>
-Sync Status:        Synced to  (f875b0b)
-Health Status:      Healthy
-
-Operation:          Sync
-Sync Revision:      f875b0b9d61002f95061e04cce72265cab4f6212
-Phase:              Succeeded
-Start:              2024-04-18 22:44:27 +0200 CEST
-Finished:           2024-04-18 22:44:27 +0200 CEST
-Duration:           0s
-Message:            successfully synced (all tasks run)
-
-GROUP        KIND           NAMESPACE  NAME             STATUS  HEALTH  HOOK  MESSAGE
-gravitee.io  ApiDefinition  gravitee   echo-api-argocd  Synced                apidefinition.gravitee.io/echo-api-argocd created
+TIMESTAMP                  GROUP              KIND      NAMESPACE                  NAME     STATUS    HEALTH        HOOK  MESSAGE
+2024-04-22T22:02:42+02:00  gravitee.io  ApiDefinition    gravitee  corporate-banking-api  OutOfSync  Missing              
+2024-04-22T22:02:42+02:00  gravitee.io  ApiDefinition    gravitee       credit-card-api   OutOfSync  Missing              
+2024-04-22T22:02:42+02:00  gravitee.io  ApiDefinition    gravitee    investment-banking   OutOfSync  Missing              
+...
+GROUP        KIND           NAMESPACE  NAME                   STATUS  HEALTH  HOOK  MESSAGE
+gravitee.io  ApiDefinition  gravitee   investment-banking     Synced                apidefinition.gravitee.io/investment-banking created
+gravitee.io  ApiDefinition  gravitee   credit-card-api        Synced                apidefinition.gravitee.io/credit-card-api created
+gravitee.io  ApiDefinition  gravitee   corporate-banking-api  Synced                apidefinition.gravitee.io/corporate-banking-api created
 ```
 
 ```sh
-% curl apim.example.com/gateway/echo-argocd     
-{
-  "headers" : {
-    "Accept" : "*/*",
-    "Host" : "gravitee-echo-api.gravitee.svc.cluster.local",
-    "User-Agent" : "curl/8.4.0",
-    "X-Forwarded-For" : "10.244.0.1",
-    "X-Forwarded-Host" : "apim.example.com",
-    "X-Forwarded-Port" : "80",
-    "X-Forwarded-Proto" : "http",
-    "X-Forwarded-Scheme" : "http",
-    "X-Gravitee-Request-Id" : "1d586f5a-3164-4170-986f-5a31646170dd",
-    "X-Gravitee-Transaction-Id" : "1d586f5a-3164-4170-986f-5a31646170dd",
-    "X-Real-IP" : "10.244.0.1",
-    "X-Request-ID" : "18e12498daada3b3087a4fbd102314bc",
-    "X-Scheme" : "http",
-    "accept-encoding" : "deflate, gzip"
-  }
-}
+% curl apim.example.com/gateway/credit-card                                                                                                                                                           
+{"headers":{"Host":"api.gravitee.io","Accept":"*/*","User-Agent":"curl/8.4.0","X-Forwarded-Host":"apim.example.com","X-Forwarded-Scheme":"http","X-Gravitee-Request-Id":"8fb3ebee-eb77-4fa4-b3eb-eeeb778fa4e4","X-Gravitee-Transaction-Id":"fd8bbd27-581e-4477-8bbd-27581ec4774f","X-Real-IP":"10.244.0.1","X-Request-ID":"af2d5cd7a938f561dec2f10dd2f41316","X-Scheme":"http","accept-encoding":"deflate, gzip"},"query_params":{},"bodySize":0}%   
+```
+
+```sh
+% curl apim.example.com/gateway/investment-banking
+{"headers":{"Host":"api.gravitee.io","Accept":"*/*","User-Agent":"curl/8.4.0","X-Forwarded-Host":"apim.example.com","X-Forwarded-Scheme":"http","X-Gravitee-Request-Id":"e98b58ea-5fd7-4df6-8b58-ea5fd76df641","X-Gravitee-Transaction-Id":"86e7733a-606e-467b-a773-3a606e667b81","X-Real-IP":"10.244.0.1","X-Request-ID":"6c7c70f310c80e6e51afe50f37c39bb5","X-Scheme":"http","accept-encoding":"deflate, gzip"},"query_params":{},"bodySize":0}% 
+```
+
+```sh
+% curl apim.example.com/gateway/corporate         
+{"message":"Unauthorized","http_status_code":401}%
 ```
