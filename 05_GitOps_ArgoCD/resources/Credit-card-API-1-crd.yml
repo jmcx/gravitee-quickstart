@@ -9,6 +9,7 @@ spec:
   description: "This API was originally created manually in the console."
   visibility: "PRIVATE"
   gravitee: "2.0.0"
+  local: true
   plans:
   - name: "Keyless"
     description: "Keyless plan"

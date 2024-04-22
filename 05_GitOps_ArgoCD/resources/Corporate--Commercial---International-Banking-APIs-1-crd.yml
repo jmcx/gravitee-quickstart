@@ -9,6 +9,7 @@ spec:
   description: "Corporate, Commercial & International Banking."
   visibility: "PRIVATE"
   gravitee: "2.0.0"
+  local: true
   plans:
   - name: "API Key plan"
     description: "API Key plan"

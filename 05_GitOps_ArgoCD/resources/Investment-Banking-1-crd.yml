@@ -9,6 +9,7 @@ spec:
   description: "Investment Banking APIs."
   visibility: "PRIVATE"
   gravitee: "2.0.0"
+  local: true
   plans:
   - name: "Keyless"
     description: "Keyless plan"
