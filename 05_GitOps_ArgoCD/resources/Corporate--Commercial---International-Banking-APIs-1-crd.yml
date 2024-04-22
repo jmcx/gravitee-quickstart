@@ -11,6 +11,7 @@ spec:
   gravitee: "2.0.0"
   plans:
   - name: "API Key plan"
+    description: "API Key plan"
     validation: "MANUAL"
     security: "API_KEY"
     type: "API"
