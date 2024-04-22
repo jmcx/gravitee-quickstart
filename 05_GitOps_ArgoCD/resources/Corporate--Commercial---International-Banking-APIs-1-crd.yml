@@ -1,0 +1,28 @@
+---
+apiVersion: "gravitee.io/v1alpha1"
+kind: "ApiDefinition"
+metadata:
+  name: "Corporate, Commercial & International Banking APIs"
+spec:
+  name: "Corporate, Commercial & International Banking APIs"
+  version: "1"
+  description: "Corporate, Commercial & International Banking."
+  visibility: "PRIVATE"
+  gravitee: "2.0.0"
+  plans:
+  - name: "API Key plan"
+    validation: "MANUAL"
+    security: "API_KEY"
+    type: "API"
+    status: "PUBLISHED"
+  proxy:
+    virtual_hosts:
+    - path: "/corporate/"
+    groups:
+    - name: "default-group"
+      endpoints:
+      - name: "default"
+        target: "https://api.gravitee.io/echo"
+        type: "http"
+      load_balancing:
+        type: "ROUND_ROBIN"

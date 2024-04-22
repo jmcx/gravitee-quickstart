@@ -1,0 +1,28 @@
+---
+apiVersion: "gravitee.io/v1alpha1"
+kind: "ApiDefinition"
+metadata:
+  name: "Investment Banking"
+spec:
+  name: "Investment Banking"
+  version: "1"
+  description: "Investment Banking APIs."
+  visibility: "PRIVATE"
+  gravitee: "2.0.0"
+  plans:
+  - name: "Keyless"
+    description: "Keyless plan"
+    security: "KEY_LESS"
+    type: "API"
+    status: "PUBLISHED"
+  proxy:
+    virtual_hosts:
+    - path: "/investment-banking/"
+    groups:
+    - name: "default-group"
+      endpoints:
+      - name: "default"
+        target: "https://api.gravitee.io/echo"
+        type: "http"
+      load_balancing:
+        type: "ROUND_ROBIN"

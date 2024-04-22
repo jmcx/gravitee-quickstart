@@ -1,6 +1,5 @@
 {
   "name" : "Echo API imperative",
-  "crossId" : "41d54e6a-01c2-4b21-954e-6a01c2ab217a",
   "version" : "1",
   "execution_mode" : "v4-emulation-engine",
   "description" : "This API was originally created manually in the console.",
@@ -72,7 +71,6 @@
     "defaultValue" : "support@change.me",
     "apiId" : "22062f84-abc8-4341-862f-84abc85341aa"
   } ],
-  "id" : "22062f84-abc8-4341-862f-84abc85341aa",
   "path_mappings" : [ ],
   "proxy" : {
     "virtual_hosts" : [ {

@@ -1,0 +1,28 @@
+---
+apiVersion: "gravitee.io/v1alpha1"
+kind: "ApiDefinition"
+metadata:
+  name: "Credit card API"
+spec:
+  name: "Credit card API"
+  version: "1"
+  description: "This API was originally created manually in the console."
+  visibility: "PRIVATE"
+  gravitee: "2.0.0"
+  plans:
+  - name: "Keyless"
+    description: "Keyless plan"
+    security: "KEY_LESS"
+    type: "API"
+    status: "PUBLISHED"
+  proxy:
+    virtual_hosts:
+    - path: "/credit-card"
+    groups:
+    - name: "default-group"
+      endpoints:
+      - name: "default"
+        target: "https://api.gravitee.io/echo"
+        type: "http"
+      load_balancing:
+        type: "ROUND_ROBIN"
