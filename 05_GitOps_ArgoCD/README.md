@@ -45,7 +45,7 @@ Now we can start building ArgoCD applications, which are the unit of deployment 
 argocd app create graviteegitopsapis --repo https://github.com/jmcx/gravitee-quickstart.git --path 05_GitOps_ArgoCD/resources --dest-server https://kubernetes.default.svc --dest-namespace gravitee
 application 'graviteegitopsapis' created
 ```
-
+Once we’ve created an ArgoCD application, we can check its status by getting the application. What we’ll see is that the application is out of sync, because we haven’t yet told ArgoCD to sync it. It’ll even list the resources that aren’t synced, in this case the three Gravitee APIs that are waiting to be deployed.
 
 ```sh
 % argocd app get graviteegitopsapis 
@@ -53,18 +53,22 @@ Name:               argocd/graviteegitopsapis
 Project:            default
 Server:             https://kubernetes.default.svc
 Namespace:          gravitee
-URL:                http://localhost:51317/applications/graviteegitopsapis
+URL:                http://localhost:57336/applications/graviteegitopsapis
 Repo:               https://github.com/jmcx/gravitee-quickstart.git
 Target:             
 Path:               05_GitOps_ArgoCD/resources
 SyncWindow:         Sync Allowed
 Sync Policy:        <none>
-Sync Status:        OutOfSync from  (f875b0b)
+Sync Status:        OutOfSync from  (e0fb941)
 Health Status:      Healthy
 
-GROUP        KIND           NAMESPACE  NAME             STATUS     HEALTH   HOOK  MESSAGE
-gravitee.io  ApiDefinition  gravitee   echo-api-argocd  OutOfSync  Missing   
+GROUP        KIND           NAMESPACE  NAME                   STATUS     HEALTH   HOOK  MESSAGE
+gravitee.io  ApiDefinition  gravitee   corporate-banking-api  OutOfSync  Missing        
+gravitee.io  ApiDefinition  gravitee   credit-card-api        OutOfSync  Missing        
+gravitee.io  ApiDefinition  gravitee   investment-banking     OutOfSync  Missing 
 ```
+
+Now let’s sync the app so that ArgoCD knows to reconcile the state of what is in the Git repo with what is on the cluster.
 
 ```sh
 % argocd app sync graviteegitopsapis
@@ -72,12 +76,35 @@ TIMESTAMP                  GROUP              KIND      NAMESPACE               
 2024-04-22T22:02:42+02:00  gravitee.io  ApiDefinition    gravitee  corporate-banking-api  OutOfSync  Missing              
 2024-04-22T22:02:42+02:00  gravitee.io  ApiDefinition    gravitee       credit-card-api   OutOfSync  Missing              
 2024-04-22T22:02:42+02:00  gravitee.io  ApiDefinition    gravitee    investment-banking   OutOfSync  Missing              
-...
+[truncated]
 GROUP        KIND           NAMESPACE  NAME                   STATUS  HEALTH  HOOK  MESSAGE
 gravitee.io  ApiDefinition  gravitee   investment-banking     Synced                apidefinition.gravitee.io/investment-banking created
 gravitee.io  ApiDefinition  gravitee   credit-card-api        Synced                apidefinition.gravitee.io/credit-card-api created
 gravitee.io  ApiDefinition  gravitee   corporate-banking-api  Synced                apidefinition.gravitee.io/corporate-banking-api created
 ```
+
+I can now see that my APIs have been created:
+
+```sh
+% kubectl get apidefinitions.gravitee.io -n gravitee 
+NAME                    ENTRYPOINT             ENDPOINT                       VERSION
+corporate-banking-api   /corporate/            https://api.gravitee.io/echo   1
+credit-card-api         /credit-card           https://api.gravitee.io/echo   1
+investment-banking      /investment-banking/   https://api.gravitee.io/echo   1
+```
+
+Because these API resources have the local flag set to true, GKO will know to create configMaps in the cluster that the API gateway can use to load its configuration:
+
+```sh
+% kubectl get configmaps -n gravitee
+NAME                                                DATA   AGE
+corporate-banking-api                               4      5s
+credit-card-api                                     4      5s
+investment-banking                                  4      5s
+```
+
+I can now test that these APIs are reaching on my gateway by invoking them with any HTTP client, such as curl for instance:
+
 
 ```sh
 % curl apim.example.com/gateway/credit-card                                                                                                                                                           
@@ -93,3 +120,44 @@ gravitee.io  ApiDefinition  gravitee   corporate-banking-api  Synced            
 % curl apim.example.com/gateway/corporate         
 {"message":"Unauthorized","http_status_code":401}%
 ```
+
+These APIs are all pointing to an echo service as a backend, which is why they are replying back with metadata about the request. Except the last one which is answering with a 401 Unauthorized! Lets check the corporate banking API’s manifest to see why that might be:
+
+```sh
+% kubectl describe apidefinitions.gravitee.io corporate-banking-api -n gravitee
+Name:         corporate-banking-api
+Namespace:    gravitee
+…
+  lifecycle_state:  CREATED
+  Local:            true
+  Name:             Corporate, Commercial & International Banking APIs
+  Plans:
+    Description:  API Key plan
+    Name:         API Key plan
+    Security:     API_KEY
+    Status:       PUBLISHED
+    Type:         API
+    Validation:   MANUAL
+  Proxy:
+    Groups:
+      Endpoints:
+        Name:    default
+        Target:  https://api.gravitee.io/echo
+        Type:    http
+      load_balancing:
+        Type:  ROUND_ROBIN
+      Name:    default-group
+    virtual_hosts:
+      Path:    /corporate/
+  State:       STARTED
+  Version:     1
+  Visibility:  PRIVATE
+…
+```
+
+Of course! That API has an API key plan, and I haven’t subscribed to it yet so I can’t access it.
+
+# More automation, more reliability
+
+The goal of this tutorial is to show you the shortest path to GitOps for API management using the Gravitee API management platform and its Gravitee Kubernetes Operator paired with ArgoCD. There are many next steps you could explore to expand upon this first version, such as adding other of the Gravitee custom resources into the mix, such as applications or authentication resources. You could also experiment with different ways to structure Git repos and folders and map those to different Kubernetes namespaces. 
+
