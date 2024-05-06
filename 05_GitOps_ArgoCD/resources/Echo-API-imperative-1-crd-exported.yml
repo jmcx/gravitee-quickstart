@@ -2,14 +2,14 @@
 apiVersion: "gravitee.io/v1alpha1"
 kind: "ApiDefinition"
 metadata:
-  name: "Echo API imperative"
+  name: "echo-api"
   annotations: {}
   labels: {}
 spec:
   contextRef: 
     name: "dev-ctx"
     namespace: "gravitee"
-  name: "Echo API imperative"
+  name: "echo-api"
   crossId: "825788df-758c-4323-9788-df758c5323b9"
   version: "1"
   description: "This API was originally created manually in the console."
