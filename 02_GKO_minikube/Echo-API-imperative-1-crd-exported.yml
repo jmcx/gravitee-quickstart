@@ -9,7 +9,7 @@ spec:
   contextRef: 
     name: "dev-ctx"
     namespace: "gravitee"
-  name: "echo-api-imperative"
+  name: "echo-api-imperative-2"
   crossId: "825788df-758c-4323-9788-df758c5323b9"
   version: "1"
   description: "This API was originally created manually in the console."
