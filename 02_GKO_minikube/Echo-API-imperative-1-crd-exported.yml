@@ -1,0 +1,86 @@
+---
+apiVersion: "gravitee.io/v1alpha1"
+kind: "ApiDefinition"
+metadata:
+  name: "Echo API imperative"
+  annotations: {}
+  labels: {}
+spec:
+  contextRef: 
+    name: "dev-ctx"
+    namespace: "gravitee"
+  name: "echo-api-imperative"
+  crossId: "825788df-758c-4323-9788-df758c5323b9"
+  version: "1"
+  description: "This API was originally created manually in the console."
+  visibility: "PRIVATE"
+  flows: []
+  gravitee: "2.0.0"
+  flow_mode: "DEFAULT"
+  resources: []
+  properties: []
+  plans:
+  - id: "eb575493-3223-38a7-bc13-5213f07b2925"
+    crossId: "33abbe93-4fbb-4dab-abbe-934fbb6daba2"
+    name: "Keyless"
+    description: "Keyless plan"
+    validation: "AUTO"
+    security: "KEY_LESS"
+    type: "API"
+    status: "PUBLISHED"
+    api: "164ab578-60b9-48f3-8ab5-7860b918f3e0"
+    order: 0
+    characteristics: []
+    tags: []
+    paths: {}
+    comment_required: false
+    flows:
+    - id: "fbae8094-a6ca-4aa0-ae80-94a6ca5aa00d"
+      path-operator:
+        path: "/"
+        operator: "STARTS_WITH"
+      condition: ""
+      consumers: []
+      methods: []
+      pre: []
+      post: []
+      enabled: true
+  metadata:
+  - key: "email-support"
+    name: "email-support"
+    format: "MAIL"
+    value: "${(api.primaryOwner.email)!''}"
+    defaultValue: "support@change.me"
+  id: "164ab578-60b9-48f3-8ab5-7860b918f3e0"
+  path_mappings: []
+  proxy:
+    virtual_hosts:
+    - path: "/echo-imperative/"
+    strip_context_path: false
+    preserve_host: false
+    groups:
+    - name: "default-group"
+      endpoints:
+      - name: "default"
+        target: "http://gravitee-echo-api.gravitee.svc.cluster.local:80"
+        weight: 1
+        backup: false
+        status: "UP"
+        type: "http"
+        inherit: true
+        proxy: null
+        http: null
+        ssl: null
+      load_balancing:
+        type: "ROUND_ROBIN"
+      http:
+        connectTimeout: 5000
+        idleTimeout: 60000
+        keepAliveTimeout: 30000
+        keepAlive: true
+        readTimeout: 10000
+        pipelining: false
+        maxConcurrentConnections: 100
+        useCompression: true
+        followRedirects: false
+  response_templates: {}
