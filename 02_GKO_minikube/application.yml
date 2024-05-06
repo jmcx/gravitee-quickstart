@@ -7,7 +7,7 @@ spec:
   contextRef:
     name: "dev-ctx"
     namespace: "gravitee"
-  name: "My Kubernetes Application"
+  name: "My Kubernetes Application 5"
   type: "WEB"
   domain: "https://example.com"
   description: "Application created using GKO"
