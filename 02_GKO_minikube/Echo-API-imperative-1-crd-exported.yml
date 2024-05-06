@@ -2,7 +2,7 @@
 apiVersion: "gravitee.io/v1alpha1"
 kind: "ApiDefinition"
 metadata:
-  name: "Echo API imperative"
+  name: "echo-api-imperative"
   annotations: {}
   labels: {}
 spec:
