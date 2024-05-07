@@ -1,24 +1,22 @@
 apiVersion: gravitee.io/v1alpha1
 kind: ApiDefinition
 metadata:
-  name: echo-api-declarative
-  namespace: gravitee
+  name: movies-api
 spec:
-  name: "Echo API Declarative"
+  name: "movies-api"
   contextRef: 
     name: "dev-ctx"
     namespace: "gravitee"
   version: "1"
-  description: "Gravitee Kubernetes Operator sample"
+  description: "An API for movies"
   plans:
     - name: "KEY_LESS"
       description: "FREE"
       security: "KEY_LESS"
   proxy:
     virtual_hosts:
-      - path: "/echo-declarative"
+      - path: "/movies"
     groups:
       - endpoints:
           - name: "Default"
-            target: "http://gravitee-echo-api.gravitee.svc.cluster.local:80"
-  local: true
+            target: "https://api.gravitee.io/echo"

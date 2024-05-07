@@ -1,0 +1,22 @@
+apiVersion: gravitee.io/v1alpha1
+kind: ApiDefinition
+metadata:
+  name: music-api
+spec:
+  name: "music-api"
+  contextRef: 
+    name: "dev-ctx"
+    namespace: "gravitee"
+  version: "1"
+  description: "An API for music"
+  plans:
+    - name: "KEY_LESS"
+      description: "FREE"
+      security: "KEY_LESS"
+  proxy:
+    virtual_hosts:
+      - path: "/music"
+    groups:
+      - endpoints:
+          - name: "Default"
+            target: "https://api.gravitee.io/echo"

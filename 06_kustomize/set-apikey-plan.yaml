@@ -1,5 +1,7 @@
 apiVersion: gravitee.io/v1alpha1
 kind: ApiDefinition
+metadata:
+  name: required-for-kustomize-but-not-used
 spec:
   plans:
   - name: "My API key plan"
