@@ -19,11 +19,12 @@ Let's take a look step by step at what is required to implement a simplified ver
 
 # Setting up
 
-There are a few prerequisites to getting this example working:
+There are a few prerequisites to getting this example working. 
 
-* a Kubernetes cluster, kubectl
-* GKO is intalled on the cluster
-* Access to Gravitee platform (either in the cluster, in the cloud, anywhere really!)
+* a Kubernetes cluster and kubectl
+* Gravitee installed on the cluster. At minimum, a Gravitee gateway running on the cluster and configured to sync its API configurations from Kubernetes. The most minimal setup here is to use the gateway in db-less mode. Optionally, the full Gravitee API management platform, either running locally on the cluster or elsewhere (so long as at least one gateway is running on the cluster)
+* Gravitee Kubernetes Operator (GKO) is installed on the cluster
+* ArgoCD is installed on the cluster
 
 In this example, we'll use ArgoCD via its CLI, without needing to open the user interface. This is the simplest setup to get started quickly. Later if you're interested you can also setup the ArgoCD UI. For more on getting started with ArgoCD, head to the official ArgoCD [getting started guide](https://argo-cd.readthedocs.io/en/stable/getting_started/).
 
@@ -41,7 +42,18 @@ argocd login --core
 
 Now we can start building ArgoCD applications, which are the unit of deployment that ArgoCD will track. An application points to a repository that contains the Kubernetes manifests for the resources that we want to deploy. In this case, we'll point to https://github.com/jmcx/gravitee-quickstart.git that contains some example API CRDs that we can deploy. 
 
+By default, ArgoCD CLI expects you to be in the argocd namespace in order to be able to run Argo commands (I’m using the handy tools kubectx+kubens to switch namespaces).
+
+I’ll also make sure a Gravitee namespace is available which is where I’ll create my API definitions.
+
 ```sh
+% kubectl create namespace gravitee
+namespace/gravitee created
+
+% kubens argocd 
+Context "minikube" modified.
+Active namespace is "argocd".
+
 argocd app create graviteegitopsapis --repo https://github.com/jmcx/gravitee-quickstart.git --path 05_GitOps_ArgoCD/resources --dest-server https://kubernetes.default.svc --dest-namespace gravitee
 application 'graviteegitopsapis' created
 ```
@@ -159,5 +171,12 @@ Of course! That API has an API key plan, and I haven’t subscribed to it yet so
 
 # More automation, more reliability
 
-The goal of this tutorial is to show you the shortest path to GitOps for API management using the Gravitee API management platform and its Gravitee Kubernetes Operator paired with ArgoCD. There are many next steps you could explore to expand upon this first version, such as adding other of the Gravitee custom resources into the mix, such as applications or authentication resources. You could also experiment with different ways to structure Git repos and folders and map those to different Kubernetes namespaces. 
+Now that we have three API definitions versioned in Git that are synced to my cluster, it is very easy for me to collaborate with team members on changes to these API definitions in a way that very much resembles a software development lifecycle:
+
+Changes to the APIs can be made as pull requests on the repository that other team members can review and approve/reject
+The history of changes is visible at all times and can be rolled back to a previous state easily
+Entire new environments can be spun up very quickly with all these API loaded and ready, even if the numbers of APIs creep into the hundreds or thousands.
+APIs can be promoted across environments like development, staging and production in a controlled and automated manner.
+
+There are infinite topologies that you can choose from to best match your organizational needs, from sharing Git repos to splitting across repos, sharing Kubernetes clusters or namespaces vs having dedicated clusters, etc.
 
