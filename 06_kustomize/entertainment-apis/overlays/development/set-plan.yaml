@@ -4,8 +4,7 @@ metadata:
   name: required-for-kustomize-but-not-used
 spec:
   plans:
-  - name: "My API key plan"
-    description: "my transversal API key plan"
-    validation: "MANUAL"
-    security: "API_KEY"
+  - name: "Common keyless plan"
+    description: "Common keyless for all production APIs"
+    security: "KEYLESS"
     status: "PUBLISHED"

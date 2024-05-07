@@ -1,10 +1,8 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
-- music-api.yaml
-- movies-api.yaml
-- books-api.yaml
+- ../../base
 patches:
-  - path: set-apikey-plan.yaml
+  - path: set-plan.yaml
     target: 
       kind: ApiDefinition

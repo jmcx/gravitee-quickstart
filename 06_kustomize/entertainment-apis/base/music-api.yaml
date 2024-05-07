@@ -1,21 +1,22 @@
 apiVersion: gravitee.io/v1alpha1
 kind: ApiDefinition
 metadata:
-  name: books-api
+  name: music-api
 spec:
-  name: "books-api"
+  name: "music-api"
+  labels: ["Music"]
   contextRef: 
     name: "dev-ctx"
     namespace: "gravitee"
   version: "1"
-  description: "An API for books"
+  description: "An API for music"
   plans:
     - name: "KEY_LESS"
       description: "FREE"
       security: "KEY_LESS"
   proxy:
     virtual_hosts:
-      - path: "/books"
+      - path: "/music"
     groups:
       - endpoints:
           - name: "Default"

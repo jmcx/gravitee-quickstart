@@ -4,6 +4,7 @@ metadata:
   name: movies-api
 spec:
   name: "movies-api"
+  labels: ["Movies"]
   contextRef: 
     name: "dev-ctx"
     namespace: "gravitee"

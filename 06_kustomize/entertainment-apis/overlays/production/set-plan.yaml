@@ -1,0 +1,11 @@
+apiVersion: gravitee.io/v1alpha1
+kind: ApiDefinition
+metadata:
+  name: required-for-kustomize-but-not-used
+spec:
+  plans:
+  - name: "Common API key plan"
+    description: "Common API key plan for all production APIs"
+    validation: "MANUAL"
+    security: "API_KEY"
+    status: "PUBLISHED"

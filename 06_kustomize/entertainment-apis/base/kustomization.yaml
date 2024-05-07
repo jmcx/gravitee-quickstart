@@ -1,0 +1,10 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  - music-api.yaml
+  - movies-api.yaml
+  - books-api.yaml
+patches:
+  - path: set-labels.yaml
+    target:
+      kind: ApiDefinition
