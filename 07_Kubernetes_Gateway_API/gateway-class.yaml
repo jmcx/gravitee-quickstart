@@ -1,0 +1,19 @@
+apiVersion: gateway.networking.k8s.io/v1
+kind: GatewayClass
+metadata:
+  annotations:
+    meta.helm.sh/release-name: ngf
+    meta.helm.sh/release-namespace: nginx-gateway
+  creationTimestamp: "2024-05-13T12:16:10Z"
+  generation: 1
+  labels:
+    app.kubernetes.io/instance: ngf
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: nginx-gateway-fabric
+    app.kubernetes.io/version: 1.2.0
+    helm.sh/chart: nginx-gateway-fabric-1.2.0
+  name: nginx
+  resourceVersion: "317539"
+  uid: 8069560e-6b63-4173-b493-4350a25879b9
+spec:
+  controllerName: gateway.nginx.org/nginx-gateway-controller
