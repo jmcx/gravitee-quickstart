@@ -119,17 +119,17 @@ I can now test that these APIs are reaching on my gateway by invoking them with 
 
 
 ```sh
-% curl apim.example.com/gateway/credit-card                                                                                                                                                           
+% curl gateway.example.com/credit-card
 {"headers":{"Host":"api.gravitee.io","Accept":"*/*","User-Agent":"curl/8.4.0","X-Forwarded-Host":"apim.example.com","X-Forwarded-Scheme":"http","X-Gravitee-Request-Id":"8fb3ebee-eb77-4fa4-b3eb-eeeb778fa4e4","X-Gravitee-Transaction-Id":"fd8bbd27-581e-4477-8bbd-27581ec4774f","X-Real-IP":"10.244.0.1","X-Request-ID":"af2d5cd7a938f561dec2f10dd2f41316","X-Scheme":"http","accept-encoding":"deflate, gzip"},"query_params":{},"bodySize":0}%   
 ```
 
 ```sh
-% curl apim.example.com/gateway/investment-banking
+% curl gateway.example.com/investment-banking
 {"headers":{"Host":"api.gravitee.io","Accept":"*/*","User-Agent":"curl/8.4.0","X-Forwarded-Host":"apim.example.com","X-Forwarded-Scheme":"http","X-Gravitee-Request-Id":"e98b58ea-5fd7-4df6-8b58-ea5fd76df641","X-Gravitee-Transaction-Id":"86e7733a-606e-467b-a773-3a606e667b81","X-Real-IP":"10.244.0.1","X-Request-ID":"6c7c70f310c80e6e51afe50f37c39bb5","X-Scheme":"http","accept-encoding":"deflate, gzip"},"query_params":{},"bodySize":0}% 
 ```
 
 ```sh
-% curl apim.example.com/gateway/corporate         
+% curl gateway.example.com/corporate         
 {"message":"Unauthorized","http_status_code":401}%
 ```
 

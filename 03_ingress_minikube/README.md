@@ -1,4 +1,4 @@
-# Gravitee Ingress Controller on minikube
+# (OUTDATED) Gravitee Ingress Controller on minikube
 
 Change into the folder for this step of the tutorial:
 
