@@ -60,7 +60,7 @@ You should now be able to see this API in the Console UI, with a Kubernetes logo
 You can now call the API:
 
 ```sh
-curl apim.example.com/gateway/echo-declarative
+curl gateway.example.com/echo-declarative
 {
   "headers" : {
     "Accept" : "*/*",

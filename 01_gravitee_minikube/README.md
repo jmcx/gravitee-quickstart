@@ -93,6 +93,18 @@ If you want to use the enterprise version of the product, following the instruct
 > Again, if you need to convert a license key from base64 into text for the values.yaml, you can do `cat license.key | base64`. 
 >
 
+## Installing a self-signed cert
+
+[Source](https://vocon-it.com/2018/12/31/kubernetes-6-https-applications-via-ingress-controller-on-minikube/)
+
+export DOMAIN=console.example.com  
+openssl req -x509 -newkey rsa:4096 -sha256 -nodes -keyout tls_self.key -out tls_self.crt -subj "/CN=*.${DOMAIN}" -days 365
+SECRET_NAME=$(echo $DOMAIN | sed 's/\./-/g')-tls; echo $SECRET_NAME
+kubectl create secret tls $SECRET_NAME --cert=tls_self.crt --key=tls_self.key
+kubectl get secret $SECRET_NAME -o yaml
+
+## Installing the helm chart
+
 Now we can install the Gravitee Helm chart, here passing the license key as an argument as explained above:
 
 ```sh
