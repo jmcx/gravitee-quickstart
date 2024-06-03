@@ -1,8 +1,7 @@
 
+# Deploy an elasticsearch cluster.
 elasticsearch:
-  # Deploy an elasticsearch cluster.
   enabled: true
-  # Make it a single node cluster
   master:
     masterOnly: false
     replicaCount: 1
@@ -18,14 +17,12 @@ es:
   endpoints:
     - http://graviteeio-apim-elasticsearch-master-hl.gravitee.svc.cluster.local:9200
 
+# Deploy a mongoDB cluster.
 mongodb:
-  # Deploy a mongoDB cluster.
   enabled: true
-  # Use a mongoDB image that supports latest Mac chips.
   image:
     repository: mongo
     tag: 6.0.4-jammy
-  # Make it a single node cluster
   architecture: standalone
   persistence:
     mountPath: /data/db
@@ -34,36 +31,8 @@ mongodb:
 mongo:
   uri: mongodb://graviteeio-apim-mongodb-replicaset.gravitee.svc.cluster.local/gravitee?connectTimeoutMS=30000
 
-# Change the ingress host with your host domain.
-# no TLS provided here. Check the documentation if needed.
-api:
-  ingress:
-    management:
-      hosts:
-        - management-api.example.com
-      scheme: http
-    portal:
-      hosts:
-        - management-api.example.com
-      scheme: http
-
-# Change the ingress host with your host domain.
-# no TLS provided here. Check the documentation if needed.
 gateway:
   ingress:
-    hosts:
-      - gateway.example.com
-
-# Change the ingress host with your host domain.
-# no TLS provided here. Check the documentation if needed.
-portal:
-  ingress:
-    hosts:
-      - portal.example.com
-
-# Change the ingress host with your host domain.
-# no TLS provided here. Check the documentation if needed.
-ui:
-  ingress:
-    hosts:
-      - console.example.com
+    annotations:
+      nginx.ingress.kubernetes.io/rewrite-target: /$1
+    path: /gateway/?(.*)

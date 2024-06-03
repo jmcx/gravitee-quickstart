@@ -124,22 +124,19 @@ And you can completely delete the installation with:
 helm delete gravitee-apim
 ```
 
-You need to add a new entries to your `/etc/hosts` file, because in our values.yaml file we've defined dedicated subdomains for each Gravitee component (the APIM UI, the Portal UI, the gateway, and the management API). By the way, you can learn more about the helm chart's [defaults](https://github.com/gravitee-io/gravitee-api-management/blob/master/helm/values.yaml) and [docs](https://github.com/gravitee-io/gravitee-api-management/tree/master/helm):
+You need to add a new entry to your `/etc/hosts` file, because by [default the Gravitee Helm chart](https://github.com/gravitee-io/gravitee-api-management/blob/master/helm/values.yaml) will set host `apim.example.com` for the installation:
 
 ```sh
-127.0.0.1       console.example.com
-127.0.0.1       gateway.example.com
-127.0.0.1       portal.example.com
-127.0.0.1       management-api.example.com
+127.0.0.1     apim.example.com
 ```
 
 Once all the pods have started, you should be able to open the applications (you may need to accept the self-signed certificates):
 
-Console: http://console.example.com/console
+Console: https://apim.example.com/console
 
-Portal: http://portal.example.com/
+Portal: https://apim.example.com/catalog/
 
-default user/pass: `admin/admin`
+user/pass: `admin/admin`
 
 ## Deploy an API
 
@@ -164,7 +161,7 @@ You could also create this API manually in the console if you prefer, rather tha
 You should be able to call the API now:
 
 ```sh
-curl gateway.example.com/echo-imperative
+curl apim.example.com/gateway/echo-imperative
 {
   "headers" : {
     "Accept" : "*/*",
@@ -190,7 +187,7 @@ As expected, it spits back a bunch of metadata about the request.
 If it doesn't work and instead you're getting something like this:
 
 ```sh
-curl gateway.example.com/echo-imperative
+curl apim.example.com/gateway/echo-imperative
 No context-path matches the request URI.
 ```
 

@@ -1,8 +1,0 @@
-mongo:
-  mongodb-replicaset.enabled: true
-
-management:
-  type: mongodb
-
-oauth2:
-  type: mongodb
