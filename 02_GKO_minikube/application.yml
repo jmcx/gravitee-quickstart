@@ -11,7 +11,7 @@ spec:
   type: "WEB"
   domain: "https://example.com"
   description: "Application created using GKO"
-  applicationMetaData:
+  metadata:
     - name: "test metadata"
       format: "STRING"
     - name: "test metadata 2"
